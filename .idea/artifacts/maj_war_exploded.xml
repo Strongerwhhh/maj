@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="maj:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/maj_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="maj/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="maj" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Spring MVC-4.3.18.RELEASE" />
+          <element id="library" level="project" name="Spring-4.3.18.RELEASE" />
+          <element id="library" level="project" name="Hibernate 5.4.2-5.4.2" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/slf4j-api-1.7.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/gson-2.3.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/goeasy-sdk-0.3.8.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
