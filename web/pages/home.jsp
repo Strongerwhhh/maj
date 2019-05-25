@@ -15,6 +15,7 @@
 </head>
 <body>
 <div>
+    test
     <!--个人信息模块-->
     <div class="panel panel-default" style="width: 300px; height: 150px; position: absolute; top: 0px;">
         <div class="panel-body">
@@ -39,9 +40,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" style="text-align: center;">创建房间</h4>
             </div>
-            <form class="form-group" action="createRoom" method="post">
+            <form class="form-group" action="<%=basePath%>createRoom" method="post">
                 <div class="modal-body" id="show_password_input">
-                    <input name="userId" id="userId" value="id1"> <br>
+                    <input name="userId" id="userId" value="123123" > <br>
                     <input name="roomPwd" id="roomPwd">
                 </div>
                 <div class="modal-footer">

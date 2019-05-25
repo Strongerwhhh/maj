@@ -1,6 +1,8 @@
 package com.wzy.controller;
 
 import com.google.gson.Gson;
+import com.wzy.bean.ActionBean;
+import com.wzy.bean.AjaxBean;
 import com.wzy.bean.ShowMajBean;
 import com.wzy.bean.TestBean;
 import com.wzy.pojo.Room;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/ajax")
 public class AjaxController {
-
+    private MyGoEasy myGoEasy=MyGoEasy.getInstance();
     @RequestMapping(value = "test", method = RequestMethod.GET)
     @ResponseBody
     public String ajaxTest() {
@@ -45,5 +47,17 @@ public class AjaxController {
         return room.getRoomId();
     }
 
+    @RequestMapping(value = "showMaj" , method = RequestMethod.POST)
+    @ResponseBody
+    public boolean showMaj(AjaxBean bean){
+        String type = bean.getType();
+        int roomId = bean.getRoomId();
+        Room room=myGoEasy.getRoom(roomId);
+        ActionBean actionBean=new ActionBean();
+//        actionBean.addActio;
+        return false;
+    }
+
+//    private void
 
 }

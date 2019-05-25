@@ -1,11 +1,12 @@
 package com.wzy.bean;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ShowMajBean {
     private String type = "showMaj";
     private int tableNum;
-    private ArrayList<Integer> majIdList = new ArrayList<Integer>();
+    private LinkedList<Integer> majIdList = new LinkedList<Integer>();
 
     public int getTableNum() {
         return tableNum;
@@ -19,11 +20,19 @@ public class ShowMajBean {
         majIdList.add(majId);
     }
 
-    public ArrayList<Integer> getMajIdList() {
+    public LinkedList<Integer> getMajIdList() {
         return majIdList;
     }
 
-    public void setMajIdList(ArrayList<Integer> majIdList) {
+    public void setMajIdList(LinkedList<Integer> majIdList) {
         this.majIdList = majIdList;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

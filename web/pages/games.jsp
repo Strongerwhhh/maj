@@ -22,18 +22,15 @@
     subscribe();
     function subscribe() {
         goEasy.subscribe({
-            channel: 'test',
+            channel: '${roomId}',
             onMessage: function (message) {
-                console.log(message);
-                var arr=message.content.split("--");
-                switch (arr[0]) {
-                    case "sendMaj":
-                        var majList=new Array();
-                        for(var i=2;i<arr.length;i++) majList[i-2]=arr[i];
-                        initMaj("tableNum_"+arr[1],majList);
-                        break;
+                var json=JSON.parse(message.content);
+                switch (json.type) {
+                    case 'initMaj':{
+                        console.log("initMaj");
+                        initMaj(json.tableNum,json.majIdList)
+                    }break;
                 }
-                console.log('received:' + message.content);
             },
             onSuccess: function () {
                 console.log("Subscribe the Channel successfully.");
@@ -43,190 +40,105 @@
             }
         });
     }
-
-</script>
-
-<link rel="stylesheet" href="<%=basePath%>css/games.css" />
-<link rel="shortcut icon" href="#"/>
-<link href="favicon.ico" rel="shortcut icon">
-<body background="<%=basePath%>img/background.jpg">
-<!--麻将图-->
-<!--1号位-->
-<div class="tableNum_1">
-
-</div>
-<!--1号位的出牌区-->
-<div class="tableNum_1_input">
-
-</div>
-<!--2号位-->
-<div class="tableNum_2">
-
-
-</div>
-<!--2号位的出牌区-->
-<div class="tableNum_2_input">
-
-</div>
-<!--3号位-->
-<div class="tableNum_3">
-
-
-</div>
-<!--3号位的出牌区-->
-<div class="tableNum_3_input">
-
-</div>
-<!--4号位-->
-<div class="tableNum_4">
-
-
-</div>
-<!--4号位的出牌区-->
-<div class="tableNum_4_input">
-
-</div>
-
-<!-- 出牌按钮 -->
-<div>
-    <button id="start">开始游戏</button>
-</div>
-</body>
-<script>
     function getImgSrc(majId) {
         return "'<%=basePath%>img/" + (majId % 34 + 1) + ".png'";
     }
-
-    function mySort(majIdList) {
-        var arr=new Array();
-        for(var j=0;j<34;j++)
-            for(var i=0;i<majIdList.size();i++) if(majIdList[i]%34 == j) arr.push(majIdList.remove(i));
-        return arr;
-    }
-
-    //初始化手牌
-    function initMaj(tableNum, majIdList) {
-        var num = "";
-        console.log(majIdList);
-        arr.sort(majIdList);
-        for (var i = 0; i < majIdList.size(); i++) {
-            num += "<div class='" + tableNum + "_majiang'><img src=" + getImgSrc(majIdList[i]) + " class='" + tableNum + "_img'></div>";
-        }
-        $("." + tableNum).html(num);
-        console.log(num);
-    }
-
-    //刷新出牌区
-    function refreshInput(tableNum, tableMaj) {
-        var input_num = ""; //出牌区的牌
-        //遍历tableMaj，讲图片加入到tablenum_i_input中
-        for (var i = 0; i < tableMaj.size(); i++) {
-            input_num += "<div class='" + tableNum + "_majiang'><img src='" + (tableMaj.get(i) % 34 + 1) + ".png' class='" + tableNum + "_img'></div>";
-        }
-        $("." + tableNum + "_input").html(input_num);
-    }
-
-    //吃碰杠区的刷新
-    function pengArea(tableNum, majId) {
-        var refreshPeng = "";
-        for (var i = 0; i < 3; i++) {
-            refreshPeng += "<div><img src=" + getImgSrc(majId) + " class='" + tableNum + "_img'</div>";
-        }
-        $("." + tableNum + "_demo").html(refreshPeng);
-    }
-
-    //其他人的牌，背面表示
-    function otherMaj(tableNum, majIdList) {
-        var otherMaj = "";
-        //还要传其他3个人的tableNum
-        for (var i = 0; i < majIdList.size(); i++) {
-            otherMaj += "<div class='" + tableNum + "_majiang'><img src='img/35.png' class='" + tableNum + "_img'></div>";
-        }
-        $("." + tableNum).html(otherMaj);
-    }
-
-    //每回合的抽牌
-    function getMaj(tableNum, majId) {
-        var innerHTML = $("." + tableNum).innerHTML;
-        var newMaj = "<div class='" + tableNum + "_majiang' ><img src=" + getImgSrc(majId) + " class='" + tableNum + "_img'></div>";
-        $("." + tableNum).html(innerHTML + newMaj);
-    }
-
-    //出牌
-    function outputMaj(tableNum, majId, majIdList, tableMaj) {
-        var refreshList = "";
-        $("." + tableNum).on('click', '.' + tableNum + '_majiang', function() {
-            //先判断点击的是哪张牌
-            var majSeq = parseInt($("." + tableNum).index(this));
-            //移除tablenum_i中的这张牌
-            $("." + tableNum).eq(majSeq).remove();
-            //加入到tableMaj中
-            tableMaj.add(majId);
-            //刷新出牌区
-            refreshInput(tableNum, tableMaj);
-            //重新排序你的手牌
-            initMaj(tableNum, majIdList);
-        })
-    }
-
-    //碰
-    //其他三个人遍历自己的手牌，看有没有和对应的牌相同的，并且有两张；
-    function touch(tableNum, majId, majIdList, tableMaj) {
-        var demo = "";
-        var j = "";
-        for (var i = 0; i < majIdList.size(); i++) {
-            if ((majIdlist.get(i) % 34 + 1) == (majId % 34 + 1) && (majIdlist.get(i + 1) % 34 + 1) == (majId % 34 + 1)) {
-                demo = "<img src='img/碰.png' class='majdemo_" + tableNum + "_peng'></img>";
-                $("." + tableNum + "_input").html(demo);
-                //碰的点击事件,让碰图标消失，把出的牌和自己手牌里的两张牌，放到吃碰杠区
-                $(".majdemo_" + tableNum + "_peng").click(function() {
-                    $(".majdemo_" + tableNum + "_peng").remove(); //删除碰的图标
-                    j = i;
-                })
-            }
-        }
-        //删除tableMaj最后个值和majIdList中与其相同的两个值
-        majIdList.remove(j);
-        majIdList.remove(j + 1);
-        tableMaj.remove(tableMaj.size() - 1);
-        //重新刷新手牌区,出牌区和吃碰杠区
-        refreshInput(tableNum, tableMaj);
-        initMaj(tableNum, majIdList);
-        pengArea(tableNum, majId);
-    }
 </script>
+<script type="text/javascript" src="<%=basePath%>js/game.js" ></script>
+<link rel="stylesheet" href="<%=basePath%>css/games.css" />
+<link rel="shortcut icon" href="#"/>
+<link href="favicon.ico" rel="shortcut icon">
+<body background="<%=basePath%>img/background.jpg"><!--麻将图-->
 <script>
-    $("#start").click(function ( ) {
+    alert("${roomId}");
+</script>
+<%--<% int roomId=(int)session.getAttribute("roomId");%>--%>
+<!--1号位-->
+<ul class="tableNum_1">
+
+</ul>
+<!--1号位的出牌区-->
+<ul class="tableNum_1_input">
+
+</ul>
+<!--2号位-->
+<ul class="tableNum_2">
+
+</ul>
+<!--2号位的出牌区-->
+<ul class="tableNum_2_input">
+
+</ul>
+<!--3号位-->
+<ul class="tableNum_3">
+
+</ul>
+<!--3号位的出牌区-->
+<ul class="tableNum_3_input">
+
+</ul>
+<!--4号位-->
+<ul class="tableNum_4">
+
+</ul>
+<!--4号位的出牌区-->
+<ul class="tableNum_4_input">
+
+</ul>
+
+<!-- 吃碰杠区 -->
+<ul class="tableNum_1_demo">
+
+</ul>
+<ul class="tableNum_2_demo">
+
+</ul>
+<ul class="tableNum_3_demo">
+
+</ul>
+<ul class="tableNum_4_demo">
+
+</ul>
+<!-- 出牌按钮 -->
+<ul>
+    <button id="start">开始游戏</button>
+</ul>
+<ul class="majdemo_chi_area">
+
+</ul>
+<!--麻将事件-->
+<ul class="tableNum_1_majiang_work">
+    <li class="tableNum_1_majiang_work_chi"><img src="img/吃.png" class="tableNum_1_work_img"/> </li>
+    <li class="tableNum_1_majiang_work_peng"> <img src="img/碰.png" class="tableNum_1_work_img"/></li>
+    <li class="tableNum_1_majiang_work_gang"> <img src="img/杠.png" class="tableNum_1_work_img"/></li>
+    <li class="tableNum_1_majiang_work_hu"> <img src="img/胡.png" class="tableNum_1_work_img"/></li>
+</ul>
+<ul class="tableNum_2_majiang_work">
+
+</ul>
+<ul class="tableNum_3_majiang_work">
+
+</ul>
+<ul class="tableNum_4_majiang_work">
+
+</ul>
+<button id="b1"> 111</button>
+</body>
+<script>
+    $("#start").click(function () {
+        var data={
+            type : "start",
+            roomId : "${roomId}"
+        }
         $.ajax({
-            url : "ajax/start",
+            url : "<%=basePath%>game/start",
             type : "post",
-            dataType: "text",
-            data : {userId : "123123"},
-            success : function (roomId) {
-                console.log(roomId);
-            },
-            error : function () {
-                console.log("error");
+            data : data,
+            success : function (result) {
+                console.log("success");
+                console.log(result);
             }
         })
     })
-    function getImgSrc(majId) {
-        return "'<%=basePath%>img/"+(majId%34+1)+".png'";
-    }
-    function getMaj(tableNum, majId) {
-        var innerHTML = $("."+tableNum).innerHTML;
-        var newMaj="<div class='"+tableNum+"_majiang'><img src="+getImgSrc(majId)+" class='"+tableNum+"_img'></div>";
-        $("."+tableNum).html(innerHTML+newMaj);
-    }
-    function initMaj(tableNum, majIdList){
-        console.log(majIdList);
-        var num="";
-        for (var i=0;i<13;i++){
-            num+="<div class='"+tableNum+"_majiang'><img src="+getImgSrc(majIdList[i])+" class='"+tableNum+"_img'></div>";
-        }
-        $("."+tableNum).html(num);
-        console.log(num);
-    }
-
 </script>
 </html>

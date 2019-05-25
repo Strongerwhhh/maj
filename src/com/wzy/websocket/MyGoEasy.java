@@ -24,7 +24,7 @@ public class MyGoEasy {
         return instance;
     }
 
-
+    public Room getRoom(int roomId){return rooms.get(roomId);}
 
     public Room createRoom(String userId) {
         Room room = new Room();

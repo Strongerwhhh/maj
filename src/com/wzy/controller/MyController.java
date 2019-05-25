@@ -29,7 +29,7 @@ public class MyController {
         Room room = MyGoEasy.getInstance().createRoom(userId);
         room.setRoomPwd(roomPwd);
         model.addAttribute("roomId",room.getRoomId());
-        return "room";
+        return "games";
     }
 
     @RequestMapping(value = "roomIsLock" , method = RequestMethod.POST)

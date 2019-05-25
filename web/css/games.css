@@ -1,4 +1,5 @@
 		.tableNum_1 {
+			list-style:none;
 			position: absolute;
 			top: 750px;
 			left: 350px;
@@ -7,21 +8,7 @@
 			border: solid 1px crimson;
 		}
 		.tableNum_2 {
-			position: absolute;
-			top: 160px;
-			left: 180px;
-			height: 590px;
-			width: 170px;
-			border: solid 1px crimson;
-		}
-		.tableNum_3 {
-			position: absolute;
-			left: 350px;
-			height: 150px;
-			width: 1200px;
-			border: solid 1px crimson;
-		}
-		.tableNum_4 {
+			list-style:none;
 			position: absolute;
 			top: 160px;
 			left: 1550px;
@@ -29,7 +16,25 @@
 			width: 170px;
 			border: solid 1px crimson;
 		}
+		.tableNum_3 {
+			list-style:none;
+			position: absolute;
+			left: 350px;
+			height: 150px;
+			width: 1200px;
+			border: solid 1px crimson;
+		}
+		.tableNum_4 {
+			list-style:none;
+			position: absolute;
+			top: 160px;
+			left: 180px;
+			height: 590px;
+			width: 170px;
+			border: solid 1px crimson;
+		}
 		.tableNum_1_input {
+			list-style:none;
 			position: absolute;
 			top: 650px;
 			left: 450px;
@@ -38,14 +43,16 @@
 			border: solid 1px crimson;
 		}
 		.tableNum_2_input {
+			list-style:none;
 			position: absolute;
 			top: 260px;
-			left: 350px;
+			left: 1450px;
 			height: 390px;
 			width: 100px;
 			border: solid 1px crimson;
 		}
 		.tableNum_3_input {
+			list-style:none;
 			position: absolute;
 			top: 160px;
 			left: 450px;
@@ -54,20 +61,23 @@
 			border: solid 1px crimson;
 		}
 		.tableNum_4_input {
+			list-style:none;
 			position: absolute;
 			top: 260px;
-			left: 1450px;
+			left: 350px;
 			height: 390px;
 			width: 100px;
 			border: solid 1px crimson;
 		}
 		.tableNum_1_majiang {
+			list-style:none;
 			width: 70px;
 			height: 70px;
 			border: solid 1px;
 			float: left;
 		}
 		.tableNum_2_majiang {
+			list-style:none;
 			width: 70px;
 			height: 70px;
 			border: solid 1px;
@@ -75,6 +85,7 @@
 			margin-top: -25px;
 		}
 		.tableNum_3_majiang {
+			list-style:none;
 			width: 70px;
 			height: 70px;
 			border: solid 1px;
@@ -82,6 +93,7 @@
 			float: left;
 		}
 		.tableNum_4_majiang {
+			list-style:none;
 			width: 70px;
 			height: 70px;
 			border: solid 1px;
@@ -95,7 +107,7 @@
 		.tableNum_2_img {
 			width: 70px;
 			height: 70px;
-			transform: rotate(90deg);
+			transform: rotate(-90deg);
 		}
 		.tableNum_3_img {
 			width: 70px;
@@ -105,66 +117,88 @@
 		.tableNum_4_img {
 			width: 70px;
 			height: 70px;
-			transform: rotate(-90deg);
-		}
-		.tableNum_1_demo{
-			position: absolute;
-			top: 750px;
-			left: 1550px;
-			height: 150px;
-			width: 170px;
-			border: solid 1px darkorange;
-		}
-		.tableNum_2_demo{
-			position: absolute;
-			top: 750px;
-			left: 180px;
-			height: 150px;
-			width: 170px;
-			border: solid 1px darkorange;
-		}
-		.tableNum_3_demo{
-			position: absolute;
-			left: 180px;
-			height: 150px;
-			width: 170px;
-			border: solid 1px darkorange;
-		}
-		.tableNum_4_demo{
-			position: absolute;
-			left: 1550px;
-			height: 150px;
-			width: 170px;
-			border: solid 1px darkorange;
-		}
-		.majdemo_tableNum_1_peng {
-			width: 170px;
-			height: 170px;
-			position: absolute;
-			top: -20px;
-			left: 150px;
-		}
-		.majdemo_tableNum_2_peng {
-			width: 170px;
-			height: 170px;
-			position: absolute;
-			top: -20px;
-			left: -50px;
 			transform: rotate(90deg);
 		}
-		.majdemo_tableNum_3_peng {
-			width: 170px;
-			height: 170px;
+		.tableNum_1_demo {
+			list-style:none;
 			position: absolute;
-			top: -20px;
-			left: 150px;
-			transform: rotate(180deg);
+			top: 750px;
+			left: 1550px;
+			height: 150px;
+			width: 170px;
+			border: solid 1px darkorange;
 		}
-		.majdemo_tableNum_4_peng {
-			width: 170px;
-			height: 170px;
+		.tableNum_2_demo {
+			list-style:none;
 			position: absolute;
-			top: -20px;
-			left: -20px;
-			transform: rotate(-90deg);
+			left: 1550px;
+			height: 150px;
+			width: 170px;
+			border: solid 1px darkorange;
+		}
+		.tableNum_3_demo {
+			list-style:none;
+			position: absolute;
+			left: 180px;
+			height: 150px;
+			width: 170px;
+			border: solid 1px darkorange;
+		}
+		.tableNum_4_demo {
+			list-style:none;
+			position: absolute;
+			top: 750px;
+			left: 180px;
+			height: 150px;
+			width: 170px;
+			border: solid 1px darkorange;
+		}
+
+
+	
+		.majdemo_chi_area{
+			position: absolute;
+			list-style:none;
+			top: 650px;
+			left: 750px;
+			height: 100px;
+			width: 500px;
+			border: solid 1px crimson;
+			
+		}
+		.tableNum_1_majiang_work{
+			list-style:none;
+			width: 600px;
+			height: 150px;
+			border: solid 1px;
+			float: left;
+			position: absolute;
+			top: 600px;
+			left: 1000px;
+			z-index: 100;
+			
+		}
+		.tableNum_1_majiang_work_chi{
+			float: left;
+			display: none;
+		}
+		.tableNum_1_majiang_work_peng{
+			float: left;
+			margin-left: -50px;
+			display: none;
+		}
+		.tableNum_1_majiang_work_gang{
+			float: left;
+				margin-left: -50px;
+				display: none;
+		}
+		.tableNum_1_majiang_work_hu{
+			float: left;
+				margin-left: -50px;
+				display: none;
+		}
+		.tableNum_1_work_img{
+			height:170px;
+			width: 170px;
+			
 		}
