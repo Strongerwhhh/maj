@@ -6,20 +6,21 @@
 			+ path + "/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>welcome</title>
-
-		<!--模态框包-->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="shortcut icon" href="#" />
-		<script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+		<!--模态框包-->
+		<link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
 		<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<%--		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
+<%--		<script src="<%=basePath%>/js/jquery-2.1.4.min.js"/>--%>
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<%--        <script src="<%=basePath%>/js/bootstrap.min.js"/>--%>
+		<script src="<%=basePath%>js/jquery-2.1.4.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 	</head>
 
 	<body>
@@ -44,25 +45,25 @@
 						</h1>
 					</div>
 					<div class="modal-body">
-						<form class="form-group">
+						<form class="form-group" action="log/logup" method="post">
 							<div class="form-group">
 								用户名
 								<input class="form-control" type="text" placeholder="6-15位字母或数字"
-									id="logup_account" style="width: 93%">
+									id="logup_account" name="logup_account" style="width: 93%">
 								<div id="judge_img1"></div>
 								<span id="logup_account_message1"></span>
 							</div>
 							<div class="form-group">
 								密码
 								<input class="form-control" type="password"
-									placeholder="至少6位字母或数字" id="logup_password" style="width: 93%">
+									placeholder="至少6位字母或数字" id="logup_password" name="logup_password" style="width: 93%">
 								<div id="judge_img2"></div>
 								<span id="logup_password_message2"></span>
 							</div>
 							<div class="form-group">
 								再次输入密码
 								<input class="form-control" type="password"
-									placeholder="至少6位字母或数字" id="logup_password1" style="width: 93%">
+									placeholder="至少6位字母或数字" id="logup_password1" name="logup_password1" style="width: 93%">
 							</div>
 							<div id="judge_img3"></div>
 							<span id="logup_password_message3"></span>
@@ -99,20 +100,20 @@
 						</h1>
 					</div>
 					<div class="modal-body">
-						<form class="form-group" action="">
-							<div class="form-group">
+						<form class="form-group" action="log/login" method="post">
+							<div class="form-group" >
 								用户名
 								<input class="form-control" type="text" placeholder=""
-									id="login_account">
+									name="login_account" id="login_account">
 							</div>
 							<div class="form-group">
 								密码
 								<input class="form-control" type="password" placeholder=""
-									id="login_password">
+									name="login_password" id="login_password" >
 							</div>
 							<span id="login_message" style="color: red;"></span>
 							<div class="text-right">
-								<button class="btn btn-primary" type="button" id="login_submit">
+								<button class="btn btn-primary" type="submit" id="login_submit">
 									登录
 								</button>
 								<button class="btn btn-danger" data-dismiss="modal">
@@ -134,39 +135,41 @@ $(function() {
 	var flag1 = false;
 	var flag2 = false;
 	var flag3 = false;
+	var logup_account_check="";
 	$("#logup_account")
 			.blur(
 					function() {
 						var logup_account = $("#logup_account").val();
+						if(logup_account == logup_account_check) return false;
+						logup_account_check=logup_account;
 						if (logup_account == "") {
 							document.getElementById("judge_img1").innerHTML = "<div id='judge_img1'></div>";
 							document.getElementById("logup_account_message1").innerHTML = "<span id='logup_account_message1'></span>";
 						} else {
 							$
 									.ajax( {
-										url : "checkRegisterServlet",
+										url : "<%=basePath%>log/checkAccount",
 										type : "POST",
 										data : {
 											logup_account : logup_account
 										},
 										success : function(data) {
+											console.log("success"+data);
 											if (data == "false") {
 												document
-														.getElementById("judge_img1").innerHTML = "<div style='position: absolute;top:40px;left:550px' id='judge_img1'><img id='i1' src='img/core-img/1.jpg' style='height: 30px;width: 30px'/></div>";
+														.getElementById("judge_img1").innerHTML = "<div style='position: absolute;top:40px;left:550px' id='judge_img1'><img id='i1' src='<%=basePath%>/img/core-img/1.jpg' style='height: 30px;width: 30px'/></div>";
 												document
 														.getElementById("logup_account_message1").innerHTML = "<span id='logup_account_message1' style='color: green;'>该用户可用</span>";
 												flag1 = true;
 											} else if (data == "true") {
 												document
-														.getElementById("judge_img1").innerHTML = "<div style='position: absolute;top:40px;left:550px' id='judge_img1'><img src='img/core-img/2.jpg' style='height: 30px;width: 30px'/></div>";
+														.getElementById("judge_img1").innerHTML = "<div style='position: absolute;top:40px;left:550px' id='judge_img1'><img src='<%=basePath%>/img/core-img/2.jpg' style='height: 30px;width: 30px'/></div>";
 												document
 														.getElementById("logup_account_message1").innerHTML = "<span id='logup_account_message1' style='color: red;'>用户名重复</span>";
-											} else if (data == "fail") {
-												document
-														.getElementById("judge_img1").innerHTML = "<div style='position: absolute;top:40px;left:550px' id='judge_img1'><img src='img/core-img/2.jpg' style='height: 30px;width: 30px'/></div>";
-												document
-														.getElementById("logup_account_message1").innerHTML = "<span id='logup_account_message1' style='color: red;'>用户名格式错误</span>";
 											}
+										},
+										error :function () {
+											console.log("error");
 										}
 									});
 						}
@@ -184,28 +187,6 @@ $(function() {
 							document.getElementById("judge_img2").innerHTML = "<div id='judge_img2'></div>";
 							document.getElementById("logup_password_message2").innerHTML = "<span id='logup_password_message2'></span>";
 						} else {
-							$
-									.ajax( {
-										url : "CheckRegisterServlet1",
-										type : "POST",
-										data : {
-											logup_password : logup_password
-										},
-										success : function(data) {
-											if (data == "success") {
-												document
-														.getElementById("judge_img2").innerHTML = "<div style='position: absolute;margin-top:-30px;left:550px' id='judge_img2'><img src='img/core-img/1.jpg' style='height: 30px;width: 30px'/></div>";
-												document
-														.getElementById("logup_password_message2").innerHTML = "<span id='logup_password_message2' style='color: green;'>该密码可用</span>";
-												flag2 = true;
-											} else if (data == "fail") {
-												document
-														.getElementById("judge_img2").innerHTML = "<div style='position: absolute;margin-top:-30px;left:550px'  id='judge_img2'><img src='img/core-img/2.jpg' style='height: 30px;width: 30px'/></div>";
-												document
-														.getElementById("logup_password_message2").innerHTML = "<span id='logup_password_message2' style='color: red;'>密码格式错误</span>";
-											}
-										}
-									});
 						}
 					});
 
@@ -235,29 +216,11 @@ $(function() {
 			alert("success_logIn");
 		} else {
 			alert("检查是否所有内容正确");
+			return false;
 		}
 	});
 
-	$("#login_submit").click(function() {
-		var login_account = $("#login_account").val();
-		var login_password = $("#login_password").val();
-		$.ajax( {
-			url : "CheckRegisterServlet3",
-			type : "POST",
-			data : {
-				login_account : login_account,
-				login_password : login_password
-			},
-			success : function(data) {
-				if(data=="true"){
-				document.getElementById("login_message").innerHTML="<span id='login_message' style='color: red;'></span>";
-					alert("登陆成功");
-				}else{
-					document.getElementById("login_message").innerHTML="<span id='login_message' style='color: red;'>账号密码错误</span>";
-				}
-			}
-		});
-	});
+
 });
 </script>
 </html>

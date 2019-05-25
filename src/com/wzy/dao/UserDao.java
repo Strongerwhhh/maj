@@ -31,6 +31,7 @@ public class UserDao {
         Query<MajUser> query = session.createQuery(hql, MajUser.class);
         query.setParameter("id",userid);
         Iterator it = query.setCacheable( true ).list().iterator();
+        transaction.commit();
         while( it.hasNext() ) {
             return (MajUser) it.next();
         }

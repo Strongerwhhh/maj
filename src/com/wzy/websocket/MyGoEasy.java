@@ -1,7 +1,8 @@
 package com.wzy.websocket;
 
+import com.google.gson.Gson;
+import com.wzy.bean.ShowMajBean;
 import com.wzy.pojo.Room;
-import com.wzy.pojo.ShowMajBean;
 import io.goeasy.GoEasy;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ public class MyGoEasy {
     private static GoEasy goEasy;
     private static MyGoEasy instance;
     public static HashMap<Integer, Room> rooms;
-
+    private Gson gson = new Gson();
     private MyGoEasy() {
         goEasy = new GoEasy("http://rest-hangzhou.goeasy.io","BC-6058f1b8923346efade7b8b3d7314b06");
         rooms = new HashMap<Integer, Room>();
@@ -22,6 +23,8 @@ public class MyGoEasy {
         if(instance==null) instance=new MyGoEasy();
         return instance;
     }
+
+
 
     public Room createRoom(String userId) {
         Room room = new Room();
@@ -35,6 +38,11 @@ public class MyGoEasy {
         goEasy.publish("test",msg);
     }
 
+    public String getRoomPwd(int roomId){
+        if(rooms.get(roomId)==null) return null;
+        return rooms.get(roomId).getRoomPwd();
+    }
+
     public int joinRoom(int roomId,String userId){
         if(!rooms.containsKey(roomId)) return -1;//-1 为房间不存在
         Room room=rooms.get(roomId);
@@ -42,15 +50,7 @@ public class MyGoEasy {
         else return -2;//-2 为房间人满了
     }
 
-    public void showMaj(ShowMajBean bean){
-        String channel=""+bean.getRoomId();
-        StringBuilder content=new StringBuilder();
-        content.append("showMaj--");
-        content.append(bean.getTableNum());
-        content.append("--");
-        content.append(bean.getMajId());
-        goEasy.publish(channel,content.toString());
-    }
+    public void publishObject(int roomId,Object o){ goEasy.publish(Integer.toString(roomId),gson.toJson(o)); }
 
     private  int getRandId() {
         Random random = new Random();
@@ -60,4 +60,5 @@ public class MyGoEasy {
             if (!ids.contains(id)) return id;
         }
     }
+
 }

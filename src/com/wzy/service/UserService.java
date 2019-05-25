@@ -7,9 +7,10 @@ import java.util.*;
 
 public class UserService {
     private UserDao userDao;
-
+    private static HashSet<String> idList;
     private UserService() {
         userDao = new UserDao();
+        idList=new HashSet<String>();
     }
 
     private static UserService instance;
@@ -19,10 +20,14 @@ public class UserService {
         }
         return instance;
     }
-
-//    public boolean login(MajUser user){
-//        allUsers.contains(user)
-//    }
+    public MajUser getUser(String userId){
+        return userDao.selectUser(userId);
+    }
+    public boolean login(String userId,String pwd){
+        MajUser user = userDao.selectUser(userId);
+        if(user==null || !user.getPassword().equals(pwd)) return false;
+        return true;
+    }
     public boolean addUser(MajUser user) {
         if (!containsUser(user.getUserId()) && saveOrUpdateUser(user)){
             return true;
@@ -43,7 +48,10 @@ public class UserService {
     }
 
     public boolean containsUser(String userId) {
-        return userDao.selectUser(userId)!=null;
+        if(idList.contains(userId)) return true;
+        if(userDao.selectUser(userId)==null) return false;
+        idList.add(userId);
+        return true;
     }
 
     private boolean saveOrUpdateUser(MajUser user) {

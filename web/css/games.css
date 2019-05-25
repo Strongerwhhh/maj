@@ -21,7 +21,6 @@
 			width: 1200px;
 			border: solid 1px crimson;
 		}
-		
 		.tableNum_4 {
 			position: absolute;
 			top: 160px;
@@ -37,7 +36,8 @@
 			height: 100px;
 			width: 1000px;
 			border: solid 1px crimson;
-		}.tableNum_2_input {
+		}
+		.tableNum_2_input {
 			position: absolute;
 			top: 260px;
 			left: 350px;
@@ -53,7 +53,6 @@
 			width: 1000px;
 			border: solid 1px crimson;
 		}
-		
 		.tableNum_4_input {
 			position: absolute;
 			top: 260px;
@@ -62,120 +61,110 @@
 			width: 100px;
 			border: solid 1px crimson;
 		}
-		.right_demo{
-		position: absolute;
-			top: 260px;
-			left: 1290px;
-			height: 390px;
-			width: 170px;
-			border: solid 1px crimson;
-		}
-		.bottom_majiang {
+		.tableNum_1_majiang {
 			width: 70px;
 			height: 70px;
 			border: solid 1px;
-		float:left;
+			float: left;
 		}
-		.bottom_img {
-			width: 70px;
-			height: 70px;
-		}
-		.left_majiang {
+		.tableNum_2_majiang {
 			width: 70px;
 			height: 70px;
 			border: solid 1px;
 			margin-left: 20px;
-			margin-top:-25px;
+			margin-top: -25px;
 		}
-		.left_img {
-			width: 70px;
-			height: 70px;
-			transform: rotate(90deg);
-		}
-		.top_majiang {
+		.tableNum_3_majiang {
 			width: 70px;
 			height: 70px;
 			border: solid 1px;
 			margin-top: 20px;
 			float: left;
 		}
-		.top_img {
-			width: 70px;
-			height: 70px;
-			transform: rotate(180deg);
-		}
-		.right_majiang {
+		.tableNum_4_majiang {
 			width: 70px;
 			height: 70px;
 			border: solid 1px;
 			margin-left: 20px;
-			margin-top:-25px;
+			margin-top: -25px;
 		}
-		.right_img {
+		.tableNum_1_img {
+			width: 70px;
+			height: 70px;
+		}
+		.tableNum_2_img {
+			width: 70px;
+			height: 70px;
+			transform: rotate(90deg);
+		}
+		.tableNum_3_img {
+			width: 70px;
+			height: 70px;
+			transform: rotate(180deg);
+		}
+		.tableNum_4_img {
 			width: 70px;
 			height: 70px;
 			transform: rotate(-90deg);
 		}
-		.majiang_demo_right_peng{
-			width: 170px;
-			height: 170px;
+		.tableNum_1_demo{
 			position: absolute;
-			top:-20px;
-			left:-20px;
-			transform: rotate(-90deg);
+			top: 750px;
+			left: 1550px;
+			height: 150px;
+			width: 170px;
+			border: solid 1px darkorange;
 		}
-		.majiang_demo_right_gang{
-			width: 170px;
-			height: 170px;
+		.tableNum_2_demo{
 			position: absolute;
-			top:-50px;
-			left:-50px;
-			transform: rotate(-90deg);
+			top: 750px;
+			left: 180px;
+			height: 150px;
+			width: 170px;
+			border: solid 1px darkorange;
 		}
-			.majiang_demo_left_peng{
+		.tableNum_3_demo{
+			position: absolute;
+			left: 180px;
+			height: 150px;
+			width: 170px;
+			border: solid 1px darkorange;
+		}
+		.tableNum_4_demo{
+			position: absolute;
+			left: 1550px;
+			height: 150px;
+			width: 170px;
+			border: solid 1px darkorange;
+		}
+		.majdemo_tableNum_1_peng {
 			width: 170px;
 			height: 170px;
 			position: absolute;
-			top:-20px;
-			left:-50px;
+			top: -20px;
+			left: 150px;
+		}
+		.majdemo_tableNum_2_peng {
+			width: 170px;
+			height: 170px;
+			position: absolute;
+			top: -20px;
+			left: -50px;
 			transform: rotate(90deg);
 		}
-			.majiang_demo_left_gang{
+		.majdemo_tableNum_3_peng {
 			width: 170px;
 			height: 170px;
 			position: absolute;
-			top:-50px;
-			left:-50px;
-			transform: rotate(90deg);
-		}
-			.majiang_demo_top_peng{
-			width: 170px;
-			height: 170px;
-			position: absolute;
-			top:-20px;
-			left:150px;
+			top: -20px;
+			left: 150px;
 			transform: rotate(180deg);
 		}
-			.majiang_demo_top_gang{
+		.majdemo_tableNum_4_peng {
 			width: 170px;
 			height: 170px;
 			position: absolute;
-			top:-20px;
-			left:120px;
-			transform: rotate(180deg);
+			top: -20px;
+			left: -20px;
+			transform: rotate(-90deg);
 		}
-		.majiang_demo_bottom_peng{
-			width: 170px;
-			height: 170px;
-			position: absolute;
-			top:-20px;
-			left:150px;
-		}
-		.majiang_demo_bottom_gang{
-			width: 170px;
-			height: 170px;
-			position: absolute;
-			top:-20px;
-			left:180px;
-		}
-		

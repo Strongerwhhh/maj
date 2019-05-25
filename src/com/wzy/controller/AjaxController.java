@@ -1,7 +1,11 @@
 package com.wzy.controller;
 
 import com.google.gson.Gson;
+import com.wzy.bean.ShowMajBean;
+import com.wzy.bean.TestBean;
 import com.wzy.pojo.Room;
+import com.wzy.service.UserService;
+import com.wzy.test.Test;
 import com.wzy.websocket.MyGoEasy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +17,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/ajax")
 public class AjaxController {
 
-    @RequestMapping(value = "test", method = RequestMethod.POST)
-    public void ajaxTest(@RequestParam("msg") String msg) {
-        MyGoEasy.getInstance().showTest("msg"+msg);
+    @RequestMapping(value = "test", method = RequestMethod.GET)
+    @ResponseBody
+    public String ajaxTest() {
+        ShowMajBean bean=new ShowMajBean();
+        bean.setTableNum(1);
+        bean.addMaj(1);
+        bean.addMaj(4);
+        bean.addMaj(111);
+        Gson gson=new Gson();
+        return gson.toJson(bean);
     }
 
     @RequestMapping(value = "start" , method = RequestMethod.POST)
@@ -33,4 +44,6 @@ public class AjaxController {
         instance.showTest(sb.toString());
         return room.getRoomId();
     }
+
+
 }

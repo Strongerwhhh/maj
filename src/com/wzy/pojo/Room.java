@@ -9,10 +9,12 @@ import java.util.LinkedList;
 
 public class Room {
     private int roomId;
+    private String roomPwd;
     private ArrayList<String> users;
     private LinkedList<Integer> majs;
     private HashSet<Integer>[] handMaj;
     private HashSet<Integer>[] historyMaj;
+
     public Room(){
         majs= MyUtil.getRandMaj();
         users=new ArrayList<String>();
@@ -21,6 +23,14 @@ public class Room {
         historyMaj=new HashSet[4];
         for(int i=0;i<4;i++) handMaj[i]=new HashSet<Integer>();
         for(int i=0;i<4;i++) historyMaj[i]=new HashSet<Integer>();
+    }
+
+    public String getRoomPwd() {
+        return roomPwd;
+    }
+
+    public void setRoomPwd(String roomPwd) {
+        this.roomPwd = roomPwd;
     }
 
     public ArrayList<String> getUsers() {

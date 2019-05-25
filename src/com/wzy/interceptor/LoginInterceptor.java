@@ -12,7 +12,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session = httpServletRequest.getSession();
         if(session.getAttribute("user")!=null) return true;
         httpServletRequest.setAttribute("msg","请先登录");
-        httpServletRequest.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(httpServletRequest,httpServletResponse);
+        httpServletRequest.getRequestDispatcher("/WEB-INF/pages/welcome.jsp").forward(httpServletRequest,httpServletResponse);
         return false;
     }
 
