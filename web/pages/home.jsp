@@ -6,15 +6,30 @@
 %>
 <html>
 <head>
-    <title>Title</title>
+    <title>主页</title>
     <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
     <script src="<%=basePath%>js/jquery-2.1.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/home.css" />
 </head>
 
-<body>
+<body >
+<c:if test="${not empty errorMsg}">
+    <div id="myAlert" class="alert alert-danger text-center" >
+        <strong>${errorMsg}！</strong>
+        <a href="#" id="myclose" data-dismiss="alert">&times;</a>
+    </div>
+    <script>
+        $(function(){
+            $("#myclose").click(function(){
+                $("#myAlert").alert();
+            });
+        });
+    </script>
+</c:if>
+
 <img src="<%=basePath%>/img/lun3.jpg" style="width: 1920px; height: 927px;" />
+
 <div>
     <!--个人信息模块-->
     <div class="panel panel-default" style="width: 300px; height: 150px; position: absolute;top: 0;background-color: #E0E0E0;">
@@ -23,7 +38,7 @@
             <span style="position: absolute; top: 20px; margin-left: 20px;">${user.userName}</span>
             <img src="<%=basePath%>/img/欢乐豆 .png" style="margin-top: 80px;height: 30px;margin-left: 20px; cursor:pointer;"  id="happy_bean"><span style="position: absolute; top: 100px;margin-left: 10px;"><h4>${user.happyBean}</h4></span>
             <img src="<%=basePath%>/img/123.png" style="margin-top: -70px;height: 30px;margin-left: 30px; cursor:pointer;" id="modify_user_information" data-target="#modify_user_information_modal" data-toggle="modal" />
-        </div>
+        </div><span><strong><a href="<%=basePath%>logout">退出登录</a></strong></span>
     </div>
     <!--三个按钮-->
     <div>

@@ -5,7 +5,6 @@
 			left: 350px;
 			height: 150px;
 			width: 1200px;
-			border: solid 1px crimson;
 			display: table;
 			text-align: center;
 		}
@@ -16,7 +15,6 @@
 			left: 1550px;
 			height: 590px;
 			width: 170px;
-			border: solid 1px crimson;
 		}
 		.tableNum_3 {
 			list-style: none;
@@ -24,7 +22,6 @@
 			left: 350px;
 			height: 150px;
 			width: 1200px;
-			border: solid 1px crimson;
 		}
 		.tableNum_4 {
 			list-style: none;
@@ -33,7 +30,6 @@
 			left: 180px;
 			height: 590px;
 			width: 170px;
-			border: solid 1px crimson;
 		}
 		.tableNum_1_input {
 			list-style: none;
@@ -42,7 +38,6 @@
 			left: 450px;
 			height: 100px;
 			width: 1000px;
-			border: solid 1px crimson;
 		}
 		.tableNum_2_input {
 			list-style: none;
@@ -51,7 +46,6 @@
 			left: 1450px;
 			height: 390px;
 			width: 100px;
-			border: solid 1px crimson;
 		}
 		.tableNum_3_input {
 			list-style: none;
@@ -60,7 +54,6 @@
 			left: 450px;
 			height: 100px;
 			width: 1000px;
-			border: solid 1px crimson;
 		}
 		.tableNum_4_input {
 			list-style: none;
@@ -69,56 +62,51 @@
 			left: 350px;
 			height: 390px;
 			width: 100px;
-			border: solid 1px crimson;
 		}
 		.tableNum_1_majiang {
 			list-style: none;
-			width: 50px;
-			height: 50px;
-			border: solid 1px;
+			width: 70px;
+			height: 70px;
 			float: left;
 		}
 		.tableNum_2_majiang {
 			list-style: none;
-			width: 50px;
-			height: 50px;
-			border: solid 1px;
+			width: 70px;
+			height: 70px;
 			margin-left: 20px;
 			margin-top: -25px;
 		}
 		.tableNum_3_majiang {
 			list-style: none;
-			width: 50px;
-			height: 50px;
-			border: solid 1px;
+			width: 70px;
+			height: 70px;
 			margin-top: 20px;
 			float: left;
 		}
 		.tableNum_4_majiang {
 			list-style: none;
-			width: 50px;
-			height: 50px;
-			border: solid 1px;
+			width: 70px;
+			height: 70px;
 			margin-left: 20px;
 			margin-top: -25px;
 		}
 		.tableNum_1_img {
-			width: 50px;
-			height: 50px;
+			width: 70px;
+			height: 70px;
 		}
 		.tableNum_2_img {
-			width: 50px;
-			height: 50px;
+			width: 70px;
+			height: 70px;
 			transform: rotate(-90deg);
 		}
 		.tableNum_3_img {
-			width: 50px;
-			height: 50px;
+			width: 70px;
+			height: 70px;
 			transform: rotate(180deg);
 		}
 		.tableNum_4_img {
-			width: 50px;
-			height: 50px;
+			width: 70px;
+			height: 70px;
 			transform: rotate(90deg);
 		}
 		.tableNum_1_demo {
@@ -128,7 +116,6 @@
 			left: 1550px;
 			height: 150px;
 			width: 170px;
-			border: solid 1px darkorange;
 		}
 		.tableNum_2_demo {
 			list-style: none;
@@ -136,7 +123,6 @@
 			left: 1550px;
 			height: 150px;
 			width: 170px;
-			border: solid 1px darkorange;
 		}
 		.tableNum_3_demo {
 			list-style: none;
@@ -144,7 +130,6 @@
 			left: 180px;
 			height: 150px;
 			width: 170px;
-			border: solid 1px darkorange;
 		}
 		.tableNum_4_demo {
 			list-style: none;
@@ -153,7 +138,6 @@
 			left: 180px;
 			height: 150px;
 			width: 170px;
-			border: solid 1px darkorange;
 		}
 		.tableNum_1_majdemo_chi_area {
 			position: absolute;
@@ -162,7 +146,6 @@
 			left: 750px;
 			height: 100px;
 			width: 500px;
-			border: solid 1px blue;
 		}
 		.tableNum_2_majdemo_chi_area {
 			position: absolute;
@@ -171,7 +154,6 @@
 			left: 1450px;
 			height: 500px;
 			width: 100px;
-			border: solid 1px blue;
 		}
 		.tableNum_3_majdemo_chi_area {
 			position: absolute;
@@ -180,7 +162,6 @@
 			left: 450px;
 			height: 100px;
 			width: 500px;
-			border: solid 1px blue;
 		}
 		.tableNum_4_majdemo_chi_area {
 			position: absolute;
@@ -189,13 +170,11 @@
 			left: 350px;
 			height: 500px;
 			width: 100px;
-			border: solid 1px blue;
 		}
 		.tableNum_1_majiang_work {
 			list-style: none;
 			width: 600px;
 			height: 150px;
-			border: solid 1px;
 			float: left;
 			position: absolute;
 			top: 600px;
@@ -234,7 +213,6 @@
 			list-style: none;
 			width: 150px;
 			height: 600px;
-			border: solid 1px;
 			position: absolute;
 			top: 160px;
 			left: 1400px;
@@ -268,7 +246,6 @@
 			list-style: none;
 			width: 600px;
 			height: 150px;
-			border: solid 1px;
 			float: left;
 			position: absolute;
 			top: 100px;
@@ -308,7 +285,6 @@
 			list-style: none;
 			width: 150px;
 			height: 600px;
-			border: solid 1px;
 			position: absolute;
 			top: 160px;
 			left: 350px;

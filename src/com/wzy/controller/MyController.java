@@ -14,14 +14,7 @@ public class MyController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("user");
-        return "home";
+        return "welcome1";
     }
-
-
-
-
-
-
-
 
 }

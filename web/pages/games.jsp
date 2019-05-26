@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
@@ -16,6 +16,7 @@
 	//变量区
 	var jspHandMaj;//自己的手牌
 	var jspTableMaj=new Array();//四个出牌区
+	var thisMaj=0;
 	//
 
 
@@ -28,8 +29,11 @@
         });
     }
 	function getTrueTableNum(tableNum) {
-		var x = tableNum - ${tableNum};
-		tableNum = (x > 0) ? (x + 1) : ((x * -1) + 1);
+		var x=tableNum-${tableNum};
+		if(x==0) tableNum=1;
+		if(x==1 || x==-3) tableNum=2;
+		else if(x==2 || x==-2) tableNum=3;
+		else if(x==-1 || x==3) tableNum=4;
 		tableNum = "tableNum_" + tableNum;
 		return tableNum;
 	}
@@ -43,23 +47,25 @@
             onMessage: function (message) {
                 var json=JSON.parse(message.content);
                 var tableNum=json.tableNum;
-                var majId=json.majId;
+                var majId=parseInt(json.majId);
                 var majIdList=json.majIdList;
                 switch (json.type) {
                     case 'initMaj':{
 						jspTableMaj[tableNum-1]=new Array();
 						$("."+tableNum).html("");
-                        if(json.tableNum == ${tableNum}) initMaj(json.tableNum,json.majIdList)
+                        if(json.tableNum == ${tableNum}) initMaj(majIdList)
                         else otherMaj(json.tableNum,json.majIdList)
                     }break;
 						case "getMaj"://抽牌
-							if(tableNum==${tableNum}){
-							getMaj(tableNum, majId);}
+							if(tableNum==${tableNum}){ getMaj( majId);}
 							else otherGetMaj(tableNum, majId);
 						break;
 						case "showMaj"://出牌
+								thisMaj=majId;
 							outputMaj(tableNum, majId);
 						break;
+						case "actions":
+
 						case "touch"://碰
 							touch(tableNum, majId, majIdList);
 						break;
@@ -84,9 +90,7 @@
 <link rel="shortcut icon" href="#"/>
 <link href="favicon.ico" rel="shortcut icon">
 <body background="<%=basePath%>img/background.jpg"><!--麻将图-->
-<script>
-    console.log("roomId:${roomId}");
-</script>
+<span>tableNum::${tableNum}  roomId::${roomId}</span>
 <%--<% int roomId=(int)session.getAttribute("roomId");%>--%>
 <!--1号位-->
 <ul class="tableNum_1">
@@ -169,7 +173,13 @@
 			<li class="tableNum_4_majiang_work_hu"> <img src="img/胡.png" class="tableNum_4_work_img" /></li>
 			<li class="tableNum_4_majiang_work_guo"> <img src="img/过.png" class="tableNum_4_work_img" /></li>
 		</ul>
+		<div class="showUseId_1" style="position: absolute;top: 840px;left:550px ;border: solid 1px">${ids[1]}</div>
+		<div class="showUseId_2" style="position: absolute;top: 260px;left:1700px ;border: solid 1px">${ids[2]}</div>
+		<div class="showUseId_3" style="position: absolute;top: 20px;left:500px ;border: solid 1px">3</div>
+		<div class="showUseId_4" style="position: absolute;top: 260px;left:150px ;border: solid 1px">4</div>
+<div style="position: absolute;top: 350px;left: 800px;"><p style="color: white;font-size: x-large;">房间号：${roomId}</p></div>
 </body>
+
 <script>
 	//出牌
 	function showMaj(tableNum,majId){
@@ -191,6 +201,8 @@
 			}
 		})
 	}
+	
+
 	//碰
 	function peng(tableNum,majIdList){
 		var data={
@@ -211,7 +223,7 @@
 	//吃
 	function chi(tableNum,majIdList){
 		var data={
-			type : "peng",
+			type : "chi",
 			roomId :  ${roomId},
 			tableNum : tableNum,
 			majIdList : majIdList
@@ -274,28 +286,28 @@
 
 
 	//初始化手牌
-	function initMaj(tableNum, majIdList) {
-		jspHandMaj=majIdList;
+	function initMaj(majIdList) {
 		var num = "";
-		// console.log(majIdList);
-		tableNum = getTrueTableNum(tableNum);
 		majIdList=sort(majIdList);
+		jspHandMaj=majIdList;
 		for (var i = 0; i < majIdList.length; i++) {
-			num += "<li class='" + tableNum + "_majiang' ondblclick='majOndblclick("+majIdList[i]+")'><img src=" + getImgSrc(majIdList[i]) + " class='" + tableNum + "_img'></li>";
+			num += "<li class='tableNum_1_majiang' id="+majIdList[i]+"><img src=" + getImgSrc(majIdList[i]) + " class='tableNum_1_img' ></li>";
 		}
-		$("." + tableNum).append(num);
-		// console.log(num);
+		$(".tableNum_1").html(num);
 	}
 	//刷新出牌区
 
-	function refreshInput(tableNum, tableMaj) {
+	function refreshInput(tableNum) {
 		var input_num = ""; //出牌区的牌
+		console.log(tableNum);
 		//遍历tableMaj，讲图片加入到tablenum_i_input中
-		tableNum = getTrueTableNum(tableNum);
-		for (var i = 0; i < tableMaj.length; i++) {
-			input_num += "<li class='" + tableNum + "_majiang'><img src='" + (tableMaj.get(i) % 34 + 1) + ".png' class='" + tableNum + "_img'></li>";
+
+		for (var i = 0; i < jspTableMaj[tableNum-1].length; i++) {
+			input_num += "<li class='" + getTrueTableNum(tableNum) + "_majiang'><img src='<%=basePath%>img/" + (jspTableMaj[tableNum-1][i] % 34 + 1) + ".png' class='" + getTrueTableNum(tableNum) + "_img'></li>";
 		}
-		$("." + tableNum + "_input").append(input_num);
+		console.log(getTrueTableNum(tableNum));
+		$("." + getTrueTableNum(tableNum) + "_input").html(input_num);
+		console.log("input"+$("."+getTrueTableNum(tableNum)+"_input").html());
 	}
 
 	//其他人的牌，背面表示
@@ -320,65 +332,67 @@
 	}
 
 	function majOndblclick(majId) {
-		console.log("dblclick")
+        outputMaj(${tableNum},majId)
 		showMaj(${tableNum},majId);
 	}
 
 	//每回合的抽牌
-	function getMaj(tableNum, majId) {
-		var ttableNum = getTrueTableNum(tableNum);
-		var newMaj = "<li class='" + ttableNum + "_majiang' style='margin-left: 20px' ondblclick='majOndblclick("+majId+")'><img src=" + getImgSrc(majId) + " class='" + ttableNum + "_img'></li>";
-		$("." + ttableNum).append(newMaj);
+	function getMaj(majId) {
+        // ondblclick='majOndblclick("+majId+")'
+        jspHandMaj.push(majId);
+		var newMaj = "<li class='tableNum_1_majiang' style='margin-left: 20px' id="+majId+" ><img src=" + getImgSrc(majId) + " class='tableNum_1_img' ></li>";
+		$(".tableNum_1" ).append(newMaj);
 	}
 	//其他人抽牌
 	function otherGetMaj(tableNum) {
 		tableNum = getTrueTableNum(tableNum);
-		var newMaj = "<li class='" + tableNum + "_majiang' ><img src='img/35.png' class='" + tableNum + "_img'></li>";
+		var newMaj = "<li class='" + tableNum + "_majiang' style='margin-top: 20px' ><img src='img/35.png' class='" + tableNum + "_img'></li>";
 		$("." + tableNum).append(newMaj);
 	}
 
 	//出牌
 	function outputMaj(tableNum, majId) {
-		var refreshList = "";
-		var ttableNum = getTrueTableNum(tableNum);
-		$("." + ttableNum).on('click', '.' + ttableNum + '_majiang', function() {
-			//先判断点击的是哪张牌
-			var majSeq = parseInt($("." + ttableNum).index(this));
-			//移除tablenum_i中的这张牌
-			$("." + ttableNum).eq(majSeq).remove();
-			//加入到tableMaj中
-			jspTableMaj[tableNum-1].push(majId);
-			//刷新出牌区
-			refreshInput(ttableNum, jspTableMaj[tableNum-1]);
-			//重新排序你的手牌
-			initMaj(ttableNum, handMaj);
-		})
+        //移除tablenum_i中的这张牌
+		var len =$("."+getTrueTableNum(tableNum)).children().length-1;
+		if(len>=0){
+			$("#"+majId).remove();
+		}
+        //加入到tableMaj中
+        jspTableMaj[tableNum-1].push(majId);
+        //刷新出牌区
+        refreshInput(tableNum);
+        //重新排序你的手牌
+        if(tableNum==${tableNum}) {
+			$("."+getTrueTableNum(tableNum)+" li:last").css("margin-left","");
+			jspHandMaj.splice(jspHandMaj.indexOf(majId), 1);
+        	initMaj(sort(jspHandMaj));
+		}
 	}
+
+    $(".tableNum_1").on('dblclick', '.tableNum_1_majiang', function() {
+		var imgid=$(this).attr("id");
+		showMaj(${tableNum},imgid);
+	})
 
 	//碰
 	//其他三个人遍历自己的手牌，看有没有和对应的牌相同的，并且有两张；
-	function touch(tableNum, majId, majIdList) {
-		tableNum = getTrueTableNum(tableNum);
+	function peng(tableNum) {
+		// tableNum = getTrueTableNum(tableNum);
 		var demo = "";
 		var j = "";
-		for (var i = 0; i < majIdList.length; i++) {
-			if ((majIdlist.get(i) % 34) == (majId % 34) && (majIdlist.get(i + 1) % 34) == (majId % 34)) {
-				$(".tableNum_1_majiang_work_peng").css("display", "block"); //出现碰的图片
-				//碰的点击事件,让碰图标消失，把出的牌和自己手牌里的两张牌，放到吃碰杠区
-				$(".majdemo_" + tableNum + "_peng").click(function() {
-					$("." + tableNum + "_majiang_work_peng").css("display", "none"); //删除碰的图标
-					j = i;
-				})
+		var count=0;
+		for (var i = 0; i < jspHandMaj.length; i++) {
+			if (jspHandMaj[i]%34 == thisMaj%34){
+				jspTableMaj[tableNum-1].push(jspHandMaj[i]);
+				jspHandMaj.splice(i, 1);
 			}
 		}
 		//删除tableMaj最后个值和majIdList中与其相同的两个值
-		majIdList.remove(j);
-		majIdList.remove(j + 1);
-		jspTableMaj.remove(jspTableMaj.length - 1);
+		// jspHandMaj.splice(jspHandMaj.indexOf(majId), 1);
 		//重新刷新手牌区,出牌区和吃碰杠区
-		refreshInput(tableNum, jspTableMaj);
-		initMaj(tableNum, jspHandMaj);
-		workArea(tableNum, majId);
+		refreshInput( jspTableMaj);
+		initMaj(jspHandMaj);
+		workArea(tableNum, thisMaj);
 	}
 	//吃
 
@@ -386,8 +400,7 @@
 		tableNum = getTrueTableNum(tableNum);
 		var flags = new flags[4];
 		var j = new Array();
-		//显示吃的图片
-		$("." + tableNum + "_majiang_work_chi").css("display", "block");
+
 		//吃的点击事件
 		$(".majdemo_" + tableNum + "_chi").click(function() {
 			for (var i = 0; i < majIdList.length; i++) {
@@ -432,8 +445,8 @@
 			}
 		})
 		//重新刷新手牌区,出牌区和吃碰杠区
-		refreshInput(tableNum, tablemaj);
-		initMaj(tableNum, majIdList);
+		refreshInput(tableNum);
+		initMaj(majIdList);
 		pengArea(tableNum, majId);
 	}
 	//胡
@@ -441,11 +454,41 @@
 	function through(tableNum) {
 		$(".tableNum_1_majiang_work_guo").css("display", "block");
 	}
-
+	//majIdList=吃碰杠胡
+	function  setActions(majIdList) {
+		if(thisMaj>0){
+		for(var action in majIdList){
+			if(action == "chi"){
+				//显示吃的图片
+				$("tableNum_1_majiang_work_chi").css("display", "block");
+			}
+			if(action == "peng"){
+				$(".tableNum_1_majiang_work_peng").css("display", "block"); //出现碰的图片
+				//碰的点击事件,让碰图标消失，把出的牌和自己手牌里的两张牌，放到吃碰杠区
+				$(".tableNum_1_majiang_work_peng").click(function() {
+					$(".tableNum_1_majiang_work_peng").css("display", "none"); //隐藏碰的图标
+					peng(${tableNum});
+				})
+			}
+			if(action == "gang"){
+				$(".tableNum_1_majiang_work_gang").css("display", "block");
+			}
+			if(action == "hu"){
+				$(".tableNum_1_majiang_work_hu").css("display", "block");
+			}
+		}}
+	}
 
 </script>
 <script>
     $("#start").click(function () {
+    	jspHandMaj=new Array();
+    	jspTableMaj=new Array();
+    	for(var i=0;i<4;i++){
+			jspTableMaj[i]=new Array();
+			refreshInput(i+1);
+			$(".tableNum_"+(i+1)).html();
+		}
         var data={
             type : "start",
             roomId : "${roomId}"

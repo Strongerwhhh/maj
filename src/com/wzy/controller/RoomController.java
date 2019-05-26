@@ -25,21 +25,28 @@ public class RoomController {
     }
 
     @RequestMapping(value = "joinRoom" , method = RequestMethod.GET)
-    public String joinRoom(@RequestParam("roomId")int roomId , HttpSession session, RedirectAttributes attr,
+    public String joinRoom(@RequestParam("roomId")int roomId , HttpSession session, RedirectAttributes attr,Model model,
                            @RequestParam(name="roomPwd",required = false,defaultValue = "")String roomPwd){
         MajUser user = (MajUser) session.getAttribute("user");
         int i = MyGoEasy.getInstance().joinRoom(roomId, roomPwd,user.getUserId());
-        if(i==0) return "房间不存在";
-        if(i==-1) return "密码错误";
-        if(i==-2) return "房间已满";
-        if(i==-3) return "不可重复加入房间";
-        attr.addAttribute("tableNum",i);
-        attr.addAttribute("roomId",roomId);
+        if(i<=0) {
+            String errorMsg = null;
+            if (i == 0) errorMsg = "房间不存在";
+            if (i == -1) errorMsg = "密码错误";
+            if (i == -2) errorMsg = "房间已满";
+            if (i == -3) errorMsg = "不可重复加入房间";
+            model.addAttribute("errorMsg", errorMsg);
+            return "home";
+        }
+        else{
+            attr.addAttribute("tableNum",i);
+            attr.addAttribute("roomId",roomId);
+        }
         return "redirect: room";
     }
 
     @RequestMapping("room")
-    public String joinRoom(Model model,int tableNum,int roomId){
+    public String joinRoom(Model model,int tableNum,int roomId,HttpSession session){
         model.addAttribute("roomId",roomId);
         model.addAttribute("tableNum",tableNum);
         return "games";

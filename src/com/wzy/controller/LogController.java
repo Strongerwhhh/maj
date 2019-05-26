@@ -23,7 +23,7 @@ public class LogController {
             session.setAttribute("user",userService.getUser(account));
             return "home";
         }
-        model.addAttribute("errormsg","账号或密码错误");
+        model.addAttribute("errorMsg","账号或密码错误");
         return "welcome1";
     }
 

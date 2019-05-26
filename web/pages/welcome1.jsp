@@ -26,6 +26,21 @@
     <c:if test="${not empty user}">
 		<jsp:forward page="home.jsp"/>
 	</c:if>
+
+    <c:if test="${not empty errorMsg}">
+        <div id="myAlert" class="alert alert-danger text-center" >
+            <strong>${errorMsg}！</strong>
+            <a href="#" id="myclose" data-dismiss="alert">&times;</a>
+        </div>
+        <script>
+            $(function(){
+                console.log("c:if")
+                $("#myclose").click(function(){
+                    $("#myAlert").alert();
+                });
+            });
+        </script>
+    </c:if>
 		<!-- banner -->
 		<div class="banner">
 			<!--Slider-->
@@ -141,7 +156,7 @@
 						</h1>
 					</div>
 					<div class="modal-body">
-						<form class="form-group" action="log/login" method="post">
+						<form class="form-group" action="<%=basePath%>log/login" method="post">
 							<div class="form-group">
 								用户名
 								<input class="form-control" type="text" placeholder=""
@@ -289,7 +304,7 @@
                 var account = $("#login_account").val();
                 var password = $("#login_password").val();
                 if(account.length<6 || password.length<6){
-                    console.log("账号密码格式不对")
+                    alert("账号密码格式不对")
                     return false;
                 }
             });
