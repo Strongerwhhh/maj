@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class ActionBean {
-    private int tableNum;
+    private int tableNum=0;
     private LinkedList<String> actions;
-//    private LinkedList<>
+
     public void addAction(String action){actions.add(action);}
 
     public LinkedList<String> getActions() {

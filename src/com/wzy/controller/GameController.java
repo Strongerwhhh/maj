@@ -1,5 +1,6 @@
 package com.wzy.controller;
 
+import com.wzy.bean.PublishBean;
 import com.wzy.bean.ShowMajBean;
 import com.wzy.pojo.Room;
 import com.wzy.websocket.MyGoEasy;
@@ -17,18 +18,27 @@ public class GameController {
     private MyGoEasy myGoEasy=MyGoEasy.getInstance();
     @RequestMapping(value = "start",method = RequestMethod.POST)
     @ResponseBody
-    public ShowMajBean start(@RequestParam("roomId")int roomId){
-        Room room=MyGoEasy.getInstance().getRoom(roomId);
-        if(!room.canStart()) return null;
+    public boolean start(@RequestParam("roomId")int roomId){
+        Room room=myGoEasy.getRoom(roomId);
+        PublishBean bean=new PublishBean();
+//        if(!room.canStart()) return false;
         LinkedList[] handMaj= room.startGame();
-        ShowMajBean bean=null;
         for(int i=0;i<4;i++) {
-            bean=new ShowMajBean();
             bean.setType("initMaj");
             bean.setTableNum(i+1);
-            bean.setMajIdList(handMaj[i]);
+            bean.setList(handMaj[i]);
             myGoEasy.publishObject(roomId,bean);
         }
-        return bean;
+        getMaj(roomId,1);
+        return true;
+    }
+
+    protected void getMaj(int roomId,int tableNum){
+        Room room = myGoEasy.getRoom(roomId);
+        PublishBean bean=new PublishBean();
+        bean.setType("getMaj");
+        bean.setTableNum(tableNum);
+        bean.setMajId(room.popMaj());
+        myGoEasy.publishObject(roomId,bean);
     }
 }

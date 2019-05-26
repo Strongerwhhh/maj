@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        MyGoEasy.getInstance().showTest("test test");
+//        MyGoEasy.getInstance().showTest("test test");
 //        MajUser user=new MajUser();
 //        user.setUserName("name");
 //        user.setUserImg("img");

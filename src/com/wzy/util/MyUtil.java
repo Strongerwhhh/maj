@@ -32,7 +32,7 @@ public class MyUtil {
         return maj;
     }
 
-    private static HashMap<Integer, LinkedList<Integer>> getMap(ArrayList<Integer> majIdList) {
+    private static HashMap<Integer, LinkedList<Integer>> getMap(LinkedList<Integer> majIdList) {
         HashMap<Integer, LinkedList<Integer>> map = new HashMap<Integer, LinkedList<Integer>>();
         for (int i : majIdList) {
             if (map.containsKey(i % 34)) map.get(i % 34).add(i);
@@ -46,7 +46,7 @@ public class MyUtil {
     }
 
     private static int count=0;
-    private static void dfs(ArrayList<Integer> majIdList) {
+    private static void dfs(LinkedList<Integer> majIdList) {
         HashMap<Integer, LinkedList<Integer>> myMap = getMap(majIdList);
         //只有两张牌时判断是否对子
         if (majIdList.size() == 2) {
@@ -84,25 +84,26 @@ public class MyUtil {
         }
     }
 
-    public static int canHu(ArrayList<Integer> majIdList){
-        //牌数不对
-        if(majIdList.size()%3 != 2) return -1;
+    public static boolean canHu(LinkedList<Integer> majIdList){
+        count=0;//先归零
         dfs(majIdList);
-        return count;
+        return count>0;
     }
 
     public static void main(String[] args) {
-        ArrayList<Integer> list=new ArrayList<Integer>();
+        LinkedList<Integer> list=new LinkedList<Integer>();
         list.add(1);
         list.add(2);
         list.add(3);
         list.add(4);
+        list.add(5);
+        list.add(6);
+        list.add(7);
         list.add(35);
         list.add(40);
         list.add(74);
         list.add(108);
-        int i=0;
-        i=canHu(list);
+        boolean i=canHu(list);
         System.out.println("i="+i);
     }
 }

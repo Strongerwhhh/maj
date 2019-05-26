@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ShowMajBean {
-    private String type = "showMaj";
+    private int roomId;
     private int tableNum;
+    private int majId;
     private LinkedList<Integer> majIdList = new LinkedList<Integer>();
+
 
     public int getTableNum() {
         return tableNum;
@@ -28,11 +30,19 @@ public class ShowMajBean {
         this.majIdList = majIdList;
     }
 
-    public String getType() {
-        return type;
+    public int getRoomId() {
+        return roomId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
+    public int getMajId() {
+        return majId;
+    }
+
+    public void setMajId(int majId) {
+        this.majId = majId;
     }
 }

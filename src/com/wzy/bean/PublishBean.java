@@ -1,12 +1,13 @@
 package com.wzy.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class AjaxBean {
+public class PublishBean {
     private String type;
-    private int roomId;
     private int tableNum;
-    private ArrayList<Integer> majIdList;
+    private int majId;
+    private List majIdList;
 
     public String getType() {
         return type;
@@ -16,12 +17,12 @@ public class AjaxBean {
         this.type = type;
     }
 
-    public ArrayList<Integer> getMajIdList() {
+    public List getList() {
         return majIdList;
     }
 
-    public void setMajIdList(ArrayList<Integer> majIdList) {
-        this.majIdList = majIdList;
+    public void setList(List list) {
+        this.majIdList = list;
     }
 
     public int getTableNum() {
@@ -32,11 +33,11 @@ public class AjaxBean {
         this.tableNum = tableNum;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public int getMajId() {
+        return majId;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setMajId(int majId) {
+        this.majId = majId;
     }
 }

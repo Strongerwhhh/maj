@@ -32,7 +32,7 @@ public class MyGoEasy {
         return room.getTableNum(userId);
     }
 
-    public static Room getRoom(int roomId){return rooms.get(roomId);}
+    public Room getRoom(int roomId){return rooms.get(roomId);}
 
     public Room createRoom() {
         Room room = new Room();
@@ -53,16 +53,12 @@ public class MyGoEasy {
         else return -2;//-2 为房间人满了
     }
 
-    public void showTest(String msg){
-        goEasy.publish("test",msg);
-    }
-
     public String getRoomPwd(int roomId){
         if(rooms.get(roomId)==null) return null;
         return rooms.get(roomId).getRoomPwd();
     }
 
-    public static int getRoomByUserId(String userId){
+    public int getRoomByUserId(String userId){
         if(players.isEmpty()) return 0;
         if(!players.containsKey(userId)) return 0;//0为无该用户
         return players.get(userId);
