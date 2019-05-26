@@ -10,15 +10,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/log")
 public class LogController {
     private UserService userService=UserService.getInstance();
     @RequestMapping(value = "login" , method = RequestMethod.POST)
-    public String login(@RequestParam("login_account")String account, @RequestParam("login_password")String pwd, Model model){
+    public String login(@RequestParam("login_account")String account,Model model,
+                        @RequestParam("login_password")String pwd, HttpSession session){
         if(userService.login(account,pwd)){
-            model.addAttribute("login success",account+"--"+pwd);
-            model.addAttribute("user",userService.getUser(account));
+            session.setAttribute("user",userService.getUser(account));
             return "home";
         }
         model.addAttribute("errormsg","账号或密码错误");
@@ -26,7 +28,8 @@ public class LogController {
     }
 
     @RequestMapping(value = "logup" , method = RequestMethod.POST)
-    public String logup(@RequestParam("logup_account")String account, @RequestParam("logup_password")String pwd, Model model){
+    public String logup(@RequestParam("logup_account")String account,HttpSession session,
+                        @RequestParam("logup_password")String pwd, Model model){
         MajUser user=new MajUser();
         user.setUserId(account);
         user.setPassword(pwd);
@@ -34,6 +37,7 @@ public class LogController {
         user.setHappyBean("100");
         user.setUserImg("img");
         userService.addUser(user);
+        session.setAttribute("user",user);
         return "home";
     }
 

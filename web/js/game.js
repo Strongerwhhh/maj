@@ -67,12 +67,20 @@ function gang(tableNum,majIdList) {
     })
 }
 
+function sort(majIdList) {
+    var arr=new Array();
+    for(var i=0;i<34;i++){
+        for(var j=0;j<majIdList.length;j++)
+            if(majIdList[j]%34==i) arr.push(majIdList[j]);
+    }
+    return arr;
+}
 
 //初始化手牌
 function initMaj(tableNum, majIdList) {
     var num = "";
     tableNum="tableNum_"+tableNum;
-    console.log(majIdList);
+    majIdList=sort(majIdList);
     for (var i = 0; i < majIdList.length; i++) {
         num += "<li class='" + tableNum + "_majiang'><img src=" + getImgSrc(majIdList[i]) + " class='" + tableNum + "_img'></li>";
 
@@ -100,10 +108,11 @@ function pengArea(tableNum, majId) {
 }
 
 //其他人的牌，背面表示
-function otherMaj(tableNum, majIdList) {
+function initMaj_other(tableNum) {
     var otherMaj = "";
     //还要传其他3个人的tableNum
-    for (var i = 0; i < majIdList.size(); i++) {
+    tableNum="tableNum_"+tableNum;
+    for (var i = 0; i < 13; i++) {
         otherMaj += "<li class='" + tableNum + "_majiang'><img src='img/35.png' class='" + tableNum + "_img'></li>";
     }
     $("." + tableNum).append(otherMaj);
@@ -111,9 +120,9 @@ function otherMaj(tableNum, majIdList) {
 
 //每回合的抽牌
 function getMaj(tableNum, majId) {
-    var innerHTML = $("." + tableNum).innerHTML;
+    tableNum="tableNum_"+tableNum;
     var newMaj = "<li class='" + tableNum + "_majiang' ><img src=" + getImgSrc(majId) + " class='" + tableNum + "_img'></li>";
-    $("." + tableNum).append(innerHTML + newMaj);
+    $("." + tableNum).append(newMaj);
 }
 
 

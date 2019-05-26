@@ -28,6 +28,7 @@ public class Room {
     }
 
     public Room(){
+        roomPwd="";
         users=new ArrayList<String>();
         //初始化手牌和历史牌
         handMaj=new LinkedList[4];
@@ -35,6 +36,13 @@ public class Room {
         for(int i=0;i<4;i++) handMaj[i]=new LinkedList<Integer>();
         for(int i=0;i<4;i++) historyMaj[i]=new HashSet<Integer>();
 //        for(int i=0;i<4;i++) tableMaj[i]=new HashSet<Integer>();
+    }
+
+    public boolean canStart(){return users.size()==4;}
+
+    public int getTableNum(String userId){
+        for(int i=0;i<users.size();i++) if(users.get(i).equals(userId)) return i;
+        return 0;
     }
 
     public LinkedList<Integer>[] startGame(){
@@ -48,6 +56,12 @@ public class Room {
 
     public String getRoomPwd() {
         return roomPwd;
+    }
+
+    public boolean quitRoom(int tableNum){
+        if(users.contains(tableNum))
+        users.remove(tableNum);
+        return true;
     }
 
     public void setRoomPwd(String roomPwd) {

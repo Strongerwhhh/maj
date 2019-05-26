@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,6 +11,7 @@
 <%--<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>--%>
 <script src="<%=basePath%>/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="https://cdn.goeasy.io/goeasy.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/game.js" ></script>
 <script type="text/javascript">
     if(typeof GoEasy !== 'undefined'){
         var goEasy = new GoEasy({
@@ -19,6 +21,7 @@
             onConnectFailed:function(error){console.log("Connect to GoEasy failed, error code: "+ error.code+" Error message: "+ error.content);}
         });
     }
+
     subscribe();
     function subscribe() {
         goEasy.subscribe({
@@ -27,8 +30,8 @@
                 var json=JSON.parse(message.content);
                 switch (json.type) {
                     case 'initMaj':{
-                        console.log("initMaj");
-                        initMaj(json.tableNum,json.majIdList)
+                        if(json.tableNum == ${tableNum}) initMaj(json.tableNum,json.majIdList)
+                        else initMaj_other(json.tableNum)
                     }break;
                 }
             },
@@ -44,13 +47,12 @@
         return "'<%=basePath%>img/" + (majId % 34 + 1) + ".png'";
     }
 </script>
-<script type="text/javascript" src="<%=basePath%>js/game.js" ></script>
 <link rel="stylesheet" href="<%=basePath%>css/games.css" />
 <link rel="shortcut icon" href="#"/>
 <link href="favicon.ico" rel="shortcut icon">
 <body background="<%=basePath%>img/background.jpg"><!--麻将图-->
 <script>
-    alert("${roomId}");
+    console.log("roomId:${roomId}");
 </script>
 <%--<% int roomId=(int)session.getAttribute("roomId");%>--%>
 <!--1号位-->
@@ -135,10 +137,16 @@
             type : "post",
             data : data,
             success : function (result) {
-                console.log("success");
-                console.log(result);
+                if(result==null) return false;
+                else console.log(result);
             }
         })
     })
+    window.onclose=function (ev) {
+        $.get({
+            url : "<%=basePath%>quitRoom",
+            data : {roomid:${roomId},tableNum:${tableNum}}
+        })
+    }
 </script>
 </html>

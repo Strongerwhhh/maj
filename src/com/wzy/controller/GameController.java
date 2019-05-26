@@ -19,6 +19,7 @@ public class GameController {
     @ResponseBody
     public ShowMajBean start(@RequestParam("roomId")int roomId){
         Room room=MyGoEasy.getInstance().getRoom(roomId);
+        if(!room.canStart()) return null;
         LinkedList[] handMaj= room.startGame();
         ShowMajBean bean=null;
         for(int i=0;i<4;i++) {
